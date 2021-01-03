@@ -5,6 +5,7 @@ const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: 'unknown endpoint' });
 };
 
+router.use('/scheduling', require('./scheduling'));
 // router.use('/image',checkToken, require('./image'));
 
 router.use(unknownEndpoint);

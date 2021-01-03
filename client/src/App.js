@@ -1,3 +1,4 @@
+import Navbar from './components/Navbar';
 import './App.css';
   firebase.initializeApp({
     apiKey: 'AIzaSyCT2X4ak356lSMmFG93z6IdF_HfTPiMq5s',

@@ -90,6 +90,9 @@ const updateWeek = async (week) => {
         }
       })
     });
+    // week[0] = new Array(48).fill('hi');
+    // console.log('updated');
+    // return 3;
   } catch (error) {
     throw error;
   }  
@@ -130,6 +133,132 @@ try {
   console.error(error);
 }
 
+const cleanAppends = (week, day, firstHour, length, userId) => {
+  try {
+    let currentHour = firstHour;
+    while(currentHour - firstHour < length && currentHour < week[day].length) {
+      if(week[day][currentHour].status === 'appended' && week[day][currentHour].userId === userId) {
+        week[day][currentHour] = {status: 'available'};
+      }
+      currentHour++;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
 router.get('/', (req, res) => {
 });
+
+router.get('/initWeeks', (req, res) => {
+  try {
+    initWeeks();
+    res.send('weeks initialized');
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: 'Cannot process request' });
+  }
+});
+
+router.get('/update/:week', async (req, res) => {
+  try {
+    let week;
+    if(req.params.week === 'thisWeek') week = thisWeek;
+    else if(req.params.week === 'nextWeek') week = nextWeek;
+    else throw new Error('bad input');
+    // console.log(week[0]);
+    // let num = 
+    await updateWeek(week);
+    // console.log(num);
+    // console.log(week[0]);
+    res.send(week);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: 'Cannot process request' });
+  }
+});
+
+router.post('/append', (req, res) => {
+  try {
+    let { week, day, hour, userId } = req.body;
+    week = week === 'thisWeek' ? thisWeek : nextWeek;
+    let hourPosition = calcHourPosition(hour);
+    let stillAvailable = true;
+    let availableDuration = 0;
+    let duration = 6;
+    
+    while(hourPosition < week[day].length && duration > 0 && stillAvailable) {
+      if(week[day][hourPosition].status === 'appended' && week[day][hourPosition].userId === userId ||
+        week[day][hourPosition].status === 'available') {
+        week[day][hourPosition] = { status: 'appended', userId };
+        availableDuration++;
+        hourPosition++;
+        duration--;
+      } else stillAvailable = false;
+    }
+    res.send(`${availableDuration}`);
+  
+    setTimeout(() => {
+      cleanAppends(week, day, hourPosition - availableDuration, availableDuration, userId);
+    }, 300000);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: 'Cannot process request' });
+  }
+});
+
+router.post('/book', async (req, res) => {
+  try {
+    let { week, day, hour, duration, userId } = req.body;
+    week = week === 'thisWeek' ? thisWeek : nextWeek;
+    const hourPosition = calcHourPosition(hour);
+  
+    for(let i = 0; i < duration; i++) {
+      if(
+        week[day][hourPosition + i].status === 'appended' && week[day][hourPosition + i].userId === userId ||
+        week[day][hourPosition + i].status === 'available'
+      ) {
+        week[day][hourPosition + i] = { status: 'booked', userId };
+      } else throw new Error('could not append');
+    }
+  
+    const appointment = {
+      boo_title: req.body.title,
+      boo_date: week[day][0],
+      boo_hour: hour,
+      boo_duration: duration,
+      boo_is_open: req.body.isOpen,
+      boo_open_to: req.body.openTo,
+      boo_booked_by: userId,
+      boo_notes:req.body.notes
+    };
+  
+    mysqlCon.query('INSERT INTO booking SET ?', appointment, (error, results, fields) => {
+      if(error) throw error;
+      res.send(results);
+    });
+    cleanAppends(week, day, hourPosition + parseInt(duration), 6 - duration, userId);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: 'Cannot process request' });
+  }
+});
+
+router.post('/unappend', (req, res) => {
+  try {
+    let { week, day, hour, userId } = req.body;
+    week = week === 'thisWeek' ? thisWeek : nextWeek;
+    const hourPosition = calcHourPosition(hour);
+
+    cleanAppends(week, day, hourPosition, 6, userId);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: 'Cannot process request' });
+  }
+});
+
+router.delete('/booked', (req, res) => {
+});
+
 module.exports = router;

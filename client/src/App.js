@@ -6,8 +6,11 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import SignIn from './components/SignIn';
 import About from './components/About';
+// import SignUp from './components/SignUp';
 import PrivateRouter from './components/PrivateRouter';
 import './App.css';
+
+if(!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: 'AIzaSyCT2X4ak356lSMmFG93z6IdF_HfTPiMq5s',
     authDomain: 'derech-haketzev.firebaseapp.com',
@@ -17,6 +20,10 @@ import './App.css';
     appId: '1:793610760529:web:ab1e88f4fb1bac9e616370',
     measurementId: 'G-V4ZBT294V6'
   });
+  } else {
+  firebase.app();
+}
+
 const auth = firebase.auth();
 
 function App() {
@@ -32,6 +39,10 @@ function App() {
   useEffect(() => {
     checkUser();
   }, [user])
+
+
+// TODO: don't redirect to login if authorized
+
 
   return (
     <div className='app'>

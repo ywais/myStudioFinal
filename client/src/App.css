@@ -38,6 +38,17 @@
   border-radius: 50%;
 }
 
+.sidebar {
+  position: relative;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 900;
+  background-color: #b3b3b3;
+}
+
 .bar a {
   color: white;
   text-decoration: none;
@@ -46,6 +57,18 @@
 .bar a:hover {
   color: black;
   text-decoration: underline;
+}
+
+/* ~~~~~~~~~~~~~~ SIGNIN ~~~~~~~~~~~~~~ */
+.signsContainer {
+  position: relative;
+  z-index: 2;
+}
+
+/* ~~~~~~~~~~~~~~ USER ~~~~~~~~~~~~~~ */
+.userPage {
+  position: relative;
+  z-index: 2;
 }
 
 /* ~~~~~~~~~~~~~~ SCHEDULER ~~~~~~~~~~~~~~ */

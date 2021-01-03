@@ -3,6 +3,7 @@ import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import firebase from 'firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 import SignIn from './components/SignIn';
 import About from './components/About';
 import PrivateRouter from './components/PrivateRouter';
@@ -36,6 +37,7 @@ function App() {
     <div className='app'>
       <Navbar user={user}/>
       <div className='pageContainer'>
+        <Sidebar />
         <div className='page'>
           {(user || authorize === 'authorized') && (
             <PrivateRouter user={user} firebase={firebase}/>

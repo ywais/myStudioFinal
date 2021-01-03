@@ -1,4 +1,6 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import User from './User';
+import About from './About';
 import Scheduler from './Scheduler';
 
 function PrivateRouter(props) {
@@ -15,6 +17,14 @@ function PrivateRouter(props) {
               <Scheduler /*user={props.user}*/ match={match} location={location} history={history} />
             )}
           />
+          <Route exact path='/user'
+            render={({match, location, history}) => (
+              <User user={props.user} match={match} location={location} history={history} />
+            )}
+          />
+          <Route exact path="/about">
+            <About user={props.user} />
+          </Route>
           <Route>
             <div>
               ERROR 404, PAGE NOT FOUND!

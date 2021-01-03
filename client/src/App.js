@@ -50,6 +50,7 @@ function App() {
       <div className='pageContainer'>
         <Sidebar />
         <div className='page'>
+          <img id='backgroundLogo' src='clean_logo.png' alt='background-logo' draggable="false"/>
           {(user || authorize === 'authorized') && (
             <PrivateRouter user={user} firebase={firebase}/>
           )}

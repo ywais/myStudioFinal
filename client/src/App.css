@@ -20,6 +20,15 @@
   background-color: #FEC627;
 }
 
+#backgroundLogo {
+  position: fixed;
+  height: 200%;
+  right: 12vw;
+  top: -20vh;
+  z-index: 1;
+  opacity: 0.3;
+}
+
 /* ~~~~~~~~~~~~~~ BARS ~~~~~~~~~~~~~~ */
 .navbar {
   position: relative;

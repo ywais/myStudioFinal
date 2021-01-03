@@ -30,10 +30,10 @@ const DateH2 = styled.h2`
   background-color: ${props => props.children === new Date().getDate() ? '#FEC627' : 'white'};
 `
 
+const monthsNames = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר']
 
 // TODO: why need 2 renders for new appointments
 // TODO: reset form
-
 
 function Scheduler(props) {
   const [week, setWeek] = useState([[]]);
@@ -111,11 +111,11 @@ function Scheduler(props) {
               >
                 <div className='calendarMonths'>
                   <span>
-                    {week[0].length && `${new Date(week[0][0]).getMonth() + 1}/${new Date(week[0][0]).getFullYear()}`}
+                    {week[0].length && `${monthsNames[new Date(week[0][0]).getMonth()]} ${new Date(week[0][0]).getFullYear() - 2000}`}
                   </span>
                   <span>
                     {week[0].length && new Date(week[5][0]).getMonth() !== new Date(week[0][0]).getMonth() &&
-                    ` - ${new Date(week[5][0]).getMonth() + 1}/${new Date(week[5][0]).getFullYear()}`}
+                    ` - ${monthsNames[new Date(week[5][0]).getMonth()]} ${new Date(week[5][0]).getFullYear() - 2000}`}
                   </span>
                 </div>
                 <div className='calendarButtons'>

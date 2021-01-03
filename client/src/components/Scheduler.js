@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from 'styled-components';
 import axios from 'axios';
+import BookForm from "./BookForm.js";
+// import SignIn from "./SignIn.js";
+
 const CalendarCell = styled.div`
   grid-area: ${props => props.row} / ${props => props.column} / span ${props => props.duration || 1} / ${props => props.column + 1};
   background-color: ${props => props.status === 'scheduled first' ? '#fdeab4' : props.status === 'booked first' ? '#d9d9d9' : props.status === 'appended' ? '#ffb3b3' : 'white'};
@@ -11,9 +14,23 @@ const CalendarCell = styled.div`
   z-index: ${props => props.duration > 1 ? 10 : 5};
 `
 
+const Shader = styled.div`
+  height: 70vh;
+  width: 72vw;
+  position: fixed;
+  background-color: ${props => props.showForm === 'none' ? 'white' : 'rgba(128,128,128,0.4)'};
+  z-index: ${props => props.showForm === 'none' ? '-' : ''}90;
+`
+
+
+// TODO: why need 2 renders for new appointments
+// TODO: reset form
+
+
 function Scheduler(props) {
   const [week, setWeek] = useState([[]]);
   const [hours, setHours] = useState([]);
+  const [showForm, setShowForm] = useState('none');
   const [date, setDate] = useState('');
   const [hour, setHour] = useState('');
 
@@ -40,6 +57,11 @@ function Scheduler(props) {
     generateHours();
   }, []);
 
+  // useEffect(() => {
+  //   const weekCopy = [...week];
+  //   setWeek(weekCopy);
+  // }, [showForm]);
+
   const handleTileClick = (tileDate, tileHour) => {
     setShowForm('block');
     setDate(tileDate);
@@ -64,7 +86,15 @@ function Scheduler(props) {
     <div className='calendarContainer'>
       {/* {props.user ?
         <> */}
+          <Shader showForm={showForm} onClick={handleTileClose}></Shader>
           <div className='calendar'>
+            {/* <div className='calendarWeeks'>
+              <button onClick={() => changeWeek('thisWeek')}>‹</button> // check current view and one disable button
+              <button onClick={() => changeWeek('nextWeek')}>›</button> // check current view and one disable button
+              <span>
+                {week[0].length && `${new Date(week[0][0]).toLocaleDateString()} - ${new Date(week[5][0]).toLocaleDateString()}`}
+              </span>
+            </div> */}
             <div className='calendarDates'>
               <CalendarCell
                 className='calendarToggle'
@@ -150,6 +180,7 @@ function Scheduler(props) {
         {/* </> :
         <SignIn />
       } */}
+      <BookForm showForm={showForm} setShowForm={setShowForm} /*setWeek={setWeek}*/ date={date} hour={hour} week={week} /> {/* send user */}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+/* ~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~ */
 .app {
   min-height: 100vh;
   direction: rtl;
@@ -19,6 +20,7 @@
   background-color: #FEC627;
 }
 
+/* ~~~~~~~~~~~~~~ BARS ~~~~~~~~~~~~~~ */
 .navbar {
   position: relative;
   height: 10vh;
@@ -34,5 +36,81 @@
 #navbarLogo {
   height: calc(10vh - 15px);
   border-radius: 50%;
+}
+
+.bar a {
+  color: white;
+  text-decoration: none;
+}
+
+.bar a:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+/* ~~~~~~~~~~~~~~ SCHEDULER ~~~~~~~~~~~~~~ */
+.calendarContainer {
+  height: 70vh;
+  width: 72vw;
+  text-align: center;
+  z-index: 2;
+  background-color: white;
+}
+
+.calendarDates {
+  display: grid;
+  grid-template-columns: 10% 5px repeat(6, 1fr) 17px;
+  grid-template-rows: 1fr;
+  width: 100%;
+}
+
+.calendarToggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.calendarMonths {
+  margin: auto;
+}
+
+.calendarButtons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.calendarHeaderDay {
+  margin: 0.3em 0 0.15em;
+}
+
+.calendarHeaderDate {
+  margin: 0.15em 0 0.3em;
+}
+
+.calendarBody {
+  width: 100%;
+  max-height: calc(70vh - 64px);
+  display: grid;
+  grid-template-columns: 10% 5px repeat(6, 1fr);
+  grid-template-rows: repeat(48, 35px);
+  overflow-y: auto;
+}
+
+.calendarHour {
+  position: relative;
+  top: -0.7em;
+  left: 0.5em;
+  font-size: small;
+  text-align: left;
+}
+
+.tilePreview {
+  margin: 0.2em 0;
+}
+
+p.tilePreview {
+  font-size: 0.85em;
 }
 

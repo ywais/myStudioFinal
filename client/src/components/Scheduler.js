@@ -22,6 +22,14 @@ const Shader = styled.div`
   z-index: ${props => props.showForm === 'none' ? '-' : ''}90;
 `
 
+const DateH2 = styled.h2`
+  height: 1.5em;
+  width: 1.5em;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: ${props => props.children === new Date().getDate() ? '#FEC627' : 'white'};
+`
+
 
 // TODO: why need 2 renders for new appointments
 // TODO: reset form
@@ -123,7 +131,7 @@ function Scheduler(props) {
                   column={index + 3}
                 >
                   <h5 className='calendarHeaderDay'>{`יום ${String.fromCharCode(`0x5D${index}`)}'`}</h5>
-                  <h2 className='calendarHeaderDate'>{new Date(day[0]).getDate()}</h2>
+                  <DateH2 className='calendarHeaderDate'>{new Date(day[0]).getDate()}</DateH2>
                 </CalendarCell>
               )}
             </div>

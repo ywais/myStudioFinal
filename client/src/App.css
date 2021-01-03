@@ -151,10 +151,6 @@
   margin: 0.3em 0 0.15em;
 }
 
-.calendarHeaderDate {
-  margin: 0.15em 0 0.3em;
-}
-
 .calendarBody {
   width: 100%;
   max-height: calc(70vh - 64px);

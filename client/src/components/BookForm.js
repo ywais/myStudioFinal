@@ -19,7 +19,7 @@ const MyTextInput = ({ label, ...props }) => {
 const MyDependentTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div className='longInput' style={{display: props.displaying ? 'inline-block' : 'none'}}>
+    <div className='longInput' style={{display: props.displaying}}>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <input className='text-input' {...field} {...props} />
       {meta.touched && meta.error ? (

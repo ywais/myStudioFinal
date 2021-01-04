@@ -19,7 +19,7 @@ const MyTextInput = ({ label, ...props }) => {
 const MyDependentTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div className='longInput' style={{display: props.displaying}}>
+    <div className='longInput' style={{display: props.displaying, marginTop: '1em'}}>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <input className='text-input' {...field} {...props} />
       {meta.touched && meta.error ? (
@@ -48,6 +48,7 @@ const MyCheckbox = ({ children, ...props }) => {
     <div>
       <label className='formLabel checkbox'>
         <input id='openCheck' type='checkbox' {...field} {...props} />
+        <span class="checkmark"></span>
         {children}
       </label>
       {meta.touched && meta.error ? (

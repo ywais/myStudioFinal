@@ -219,3 +219,59 @@ p.tilePreview {
   display: flex;
   flex-direction: row;
 }
+
+/* ~~~~ custom checkbox ~~~~ */
+.checkbox {
+  display: block;
+  position: relative;
+  padding-right: 1.5em;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0.25em;
+  right: 0;
+  height: 1em;
+  width: 1em;
+  background-color: white;
+}
+
+.checkbox:hover input ~ .checkmark {
+  background-color: #CFCFCF;
+}
+
+.checkbox input:checked ~ .checkmark {
+  background-color: #FEC627;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox .checkmark:after {
+  right: 0.29em;
+  width: 0.2em;
+  height: 0.65em;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(40deg);
+  -ms-transform: rotate(40deg);
+  transform: rotate(40deg);
+}

@@ -23,8 +23,7 @@
 #backgroundLogo {
   position: fixed;
   height: 200%;
-  right: 12vw;
-  top: -20vh;
+  top: -15vh;
   z-index: 1;
   opacity: 0.3;
 }
@@ -66,6 +65,92 @@
 .bar a:hover {
   color: black;
   text-decoration: underline;
+}
+
+/* ~~~~~~~~~~~~~~ HOME ~~~~~~~~~~~~~~ */
+.homePage {
+  width: 80vw;
+  min-height: 90vh;
+  max-height: 90vh;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.homeStrip {
+  width: 30vw;
+  min-height: 100vh;
+  max-height: 100vh;
+  position: relative;
+  bottom: 6vh;
+  right: 40vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  /* background-color: #FEC627; */
+  transform: rotate(-5deg);
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.homeStrip::-webkit-scrollbar {
+  display: none;
+}
+
+.homeImage {
+  width: 30vw;
+  max-height: 100%;
+  /* position: relative;
+  top: -10vw; */
+}
+
+.homeTorn {
+  position: absolute;
+  z-index: 5;
+}
+
+#homeTornFirst {
+  top: 28.8vw;
+}
+
+#homeTornSecond {
+  top: 42vw;
+}
+
+#homeTornThird {
+  top: 57.5vw;
+}
+
+#homeTornFourth {
+  top: 76vw;
+}
+
+.homeStripTextContainer {
+  margin: 0.1em 0;
+  /* position: relative;
+  top: -10vw; */
+  background-image: linear-gradient(#FEC627, rgba(0,0,0,0), #FEC627);
+}
+
+.homeStripText {
+  text-align: center;
+  /* color: white; */
+  /* position: relative;
+  top: -10vw; */
+  margin: 0.15em auto;
+}
+
+.homeStripTextContainer h1 {
+  font-size: 2.44vw;
+}
+
+.homeStripTextContainer h2 {
+  font-size: 1.83vw;
+}
+
+.homeStripTextContainer h3 {
+  font-size: 1.43vw;
 }
 
 /* ~~~~~~~~~~~~~~ SIGNIN ~~~~~~~~~~~~~~ */

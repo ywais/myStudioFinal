@@ -1,5 +1,6 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import User from './User';
+import Home from './Home';
 import About from './About';
 import Scheduler from './Scheduler';
 
@@ -22,6 +23,9 @@ function PrivateRouter(props) {
               <User user={props.user} match={match} location={location} history={history} />
             )}
           />
+          <Route exact path="/">
+            <Home user={props.user} />
+          </Route>
           <Route exact path="/about">
             <About user={props.user} />
           </Route>

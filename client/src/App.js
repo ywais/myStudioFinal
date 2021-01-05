@@ -9,6 +9,7 @@ import About from './components/About';
 // import SignUp from './components/SignUp';
 import PrivateRouter from './components/PrivateRouter';
 import './App.css';
+import Home from './components/Home';
 
 if(!firebase.apps.length) {
   firebase.initializeApp({
@@ -59,6 +60,9 @@ function App() {
               <Switch>
                 <Route exact path="/login">
                   <SignIn user={user} />
+                </Route>
+                <Route exact path="/">
+                  <Home user={user} />
                 </Route>
                 <Route exact path="/about">
                   <About user={user} />

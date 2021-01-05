@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from 'styled-components';
 import axios from 'axios';
 import BookForm from "./BookForm.js";
@@ -41,6 +41,7 @@ function Scheduler(props) {
   const [showForm, setShowForm] = useState('none');
   const [date, setDate] = useState('');
   const [hour, setHour] = useState('');
+  const calendarBodyRef = useRef({current: {scrollTop: 0}});
 
   const changeWeek = async (newWeek) => {
     const { data } = await axios.get(`http://localhost:8080/api/v1/scheduling/update/${newWeek}`);
@@ -90,6 +91,8 @@ function Scheduler(props) {
     .catch(e => console.log(e));
   }
 
+  calendarBodyRef.current.scrollTop = 900;
+
   return (
     <div className='calendarContainer'>
       {/* {props.user ?
@@ -135,7 +138,7 @@ function Scheduler(props) {
                 </CalendarCell>
               )}
             </div>
-            <div className='calendarBody'>
+            <div className='calendarBody' ref={calendarBodyRef}>
               {hours.map((elemnt, index) =>
                 index > 0 && index % 2 === 0 ?
                 <CalendarCell

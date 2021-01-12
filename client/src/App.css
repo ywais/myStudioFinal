@@ -29,6 +29,25 @@
   opacity: 0.3;
 }
 
+/* ~~~~ scrollbar ~~~~ */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #efefef; 
+  border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #b3b3b3; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: gray; 
+}
+
 /* ~~~~~~~~~~~~~~ BARS ~~~~~~~~~~~~~~ */
 .navbar {
   position: relative;
@@ -74,7 +93,6 @@
   min-height: 90vh;
   max-height: 90vh;
   position: relative;
-  overflow: hidden;
   z-index: 2;
 }
 
@@ -204,16 +222,19 @@
 .calendarContainer {
   height: 70vh;
   width: 72vw;
+  display: flex;
   text-align: center;
   z-index: 2;
   background-color: white;
 }
 
 .calendarDates {
+  width: 42vw;
+  height: 8.78vh;
+  max-height: 8.78vh;
   display: grid;
-  grid-template-columns: 10% 5px repeat(6, 1fr) 17px;
+  grid-template-columns: 5vw 5px repeat(6, 1fr) 10px;
   grid-template-rows: 1fr;
-  width: 100%;
 }
 
 .calendarToggle {
@@ -238,10 +259,10 @@
 }
 
 .calendarBody {
-  width: 100%;
-  max-height: calc(70vh - 60px);
+  width: 42vw;
+  max-height: calc(70vh - 8.78vh);
   display: grid;
-  grid-template-columns: 10% 5px repeat(6, 1fr);
+  grid-template-columns: 5vw 5px repeat(6, 1fr);
   grid-template-rows: repeat(48, 35px);
   overflow-y: auto;
 }

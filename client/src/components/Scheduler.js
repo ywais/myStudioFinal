@@ -10,6 +10,7 @@ const CalendarCell = styled.div`
   border-width: ${props => props.border === 'thin' ? '1px 1px 0 0' : props.border === 'horizontal' ? '1px 0 0 0' : '0'};
   border-style: solid;
   border-color: black;
+  overflow: hidden;
   word-break: break-word;
   z-index: ${props => props.duration > 1 ? 10 : 5};
 `
@@ -17,6 +18,7 @@ const CalendarCell = styled.div`
 const Shader = styled.div`
   height: 70vh;
   width: 72vw;
+  width: 42vw;
   position: fixed;
   background-color: ${props => props.showForm === 'none' ? 'white' : 'rgba(128,128,128,0.4)'};
   z-index: ${props => props.showForm === 'none' ? '-' : ''}90;
@@ -66,6 +68,10 @@ function Scheduler(props) {
     generateHours();
   }, []);
 
+  useEffect(() => {
+    calendarBodyRef.current.scrollTop = 900;
+  }, [week]);
+  
   // useEffect(() => {
   //   const weekCopy = [...week];
   //   setWeek(weekCopy);
@@ -90,8 +96,6 @@ function Scheduler(props) {
     )
     .catch(e => console.log(e));
   }
-
-  calendarBodyRef.current.scrollTop = 900;
 
   return (
     <div className='calendarContainer'>
@@ -177,7 +181,7 @@ function Scheduler(props) {
                       hour.status.slice(-5) === 'first' ?
                       <div className='appointmentTile'>
                         <h5 className='tilePreview' id='tileHeader'>{hour.title}</h5>
-                        <p className='tilePreview' id='tileHours'>{hour.startHour}-{hour.endHour}</p>
+                        <p className='tilePreview' id='tileHours'>{hour.startHour} - {hour.endHour}</p>
                         <p className='tilePreview' id='tileGroup'>{hour.groupNAME}</p>
                         <p className='tilePreview' id='tileUser'>{hour.userName}</p>
                       </div> :

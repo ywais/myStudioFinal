@@ -21,7 +21,7 @@ function Home(props) {
         <img className='homeImage homeTorn' id='homeTornThird' src='torn_bottom.png' alt='torn bottom' />
         <div className='homeStripTextContainer'>
           <h2 className='homeStripText'>להקות "דרך הקצב"</h2>
-          <h2 className='homeStripText'>פועלות ברחבי הארץ ובחו"ל מזה כעשור</h2>
+          <h2 className='homeStripText'>פועלות ברחבי הארץ ובחו"ל מעל עשור</h2>
           <h2 className='homeStripText'>ומונות כ-350 מתופפים בגילאי 6 ומעלה</h2>
           <h3 className='homeStripText'>הלהקות מופיעות בהפקות מרכזיות בארץ ובחו"ל</h3>
         </div>

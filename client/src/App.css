@@ -2,6 +2,7 @@
 .app {
   min-height: 100vh;
   direction: rtl;
+  overflow: hidden;
 }
 
 .pageContainer {
@@ -115,22 +116,22 @@
 }
 
 #homeTornSecond {
-  top: 42vw;
+  top: 40.2vw;
 }
 
 #homeTornThird {
-  top: 57.5vw;
+  top: 56.2vw;
 }
 
 #homeTornFourth {
-  top: 76vw;
+  top: 66.3vw;
 }
 
 .homeStripTextContainer {
-  margin: 0.1em 0;
+  margin: 0.1em 0 0.3em;
   /* position: relative;
   top: -10vw; */
-  background-image: linear-gradient(#FEC627, rgba(0,0,0,0), #FEC627);
+  background-image: linear-gradient(#FEC627, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, #FEC627);
 }
 
 .homeStripText {
@@ -142,15 +143,15 @@
 }
 
 .homeStripTextContainer h1 {
-  font-size: 2.44vw;
+  font-size: 2.06vw;
 }
 
 .homeStripTextContainer h2 {
-  font-size: 1.83vw;
+  font-size: 1.545vw;
 }
 
 .homeStripTextContainer h3 {
-  font-size: 1.43vw;
+  font-size: 1.21vw;
 }
 
 /* ~~~~~~~~~~~~~~ SIGNIN ~~~~~~~~~~~~~~ */

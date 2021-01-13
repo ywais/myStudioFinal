@@ -17,7 +17,6 @@ const CalendarCell = styled.div`
 
 const Shader = styled.div`
   height: 70vh;
-  width: 72vw;
   width: 42vw;
   position: fixed;
   background-color: ${props => props.showForm === 'none' ? 'white' : 'rgba(128,128,128,0.4)'};
@@ -48,7 +47,6 @@ function Scheduler(props) {
   const changeWeek = async (newWeek) => {
     const { data } = await axios.get(`http://localhost:8080/api/v1/scheduling/update/${newWeek}`);
     setWeek(data);
-    setDate(data[0][0]);
   }
 
   const generateHours = () => {
@@ -95,6 +93,8 @@ function Scheduler(props) {
       }
     )
     .catch(e => console.log(e));
+    setDate('');
+    setHour('');
   }
 
   return (
@@ -195,7 +195,7 @@ function Scheduler(props) {
         {/* </> :
         <SignIn />
       } */}
-      <BookForm showForm={showForm} setShowForm={setShowForm} /*setWeek={setWeek}*/ date={date} hour={hour} week={week} /> {/* send user */}
+      <BookForm showForm={showForm} setShowForm={setShowForm} handleTileClose={handleTileClose} /*setWeek={setWeek}*/ date={date} hour={hour} week={week} setDate={setDate} setHour={setHour} /> {/* send user */}
     </div>
   );
 }

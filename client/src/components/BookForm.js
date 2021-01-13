@@ -71,6 +71,11 @@ const MySelect = ({ label, ...props }) => {
   );
 };
 
+
+// TODO: reset button doesn't remove appends. won't read props?
+// TODO: validate date & hour. use setFieldValue?
+
+
 function BookForm(props) {
   const [maxDuration, setMaxDuration] = useState(0);
 
@@ -114,8 +119,31 @@ function BookForm(props) {
     return options;
   }
 
+  const handleResetForm = () => {
+    console.log({week: props.week, date: props.date, hour: props.hour, userId: 1});
+    props.setShowForm('none');
+    console.log(
+      {
+        week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
+        day: new Date(props.date).getDay(),
+        hour: `${props.hour}:00`,
+        userId: props.user ? props.user.id : 1 // remove default
+      }
+    );
+    axios.post(
+      'http://localhost:8080/api/v1/scheduling/unappend',
+      {
+        week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
+        day: new Date(props.date).getDay(),
+        hour: `${props.hour}:00`,
+        userId: props.user ? props.user.id : 1 // remove default
+      }
+    )
+    .catch(e => console.log(e));
+  }
+
   return (
-    <div className='bookFormContainer' style={{ display: props.showForm || 'none' }}>
+    <div className='bookFormContainer' /*style={{ display: props.showForm || 'none' }}*/>
       <Formik
         initialValues={{
           title: '',
@@ -130,6 +158,10 @@ function BookForm(props) {
           title: Yup.string()
             .max(50, 'הכותרת ארוכה מדי')
             .required('יש להזין כותרת'),
+          // date: Yup.string()
+          //   .required('יש לבחור יום'),
+          // hour: Yup.string()
+          //   .required('יש לבחור שעה'),
           duration: Yup.string()
             .oneOf(
               ['1', '2', '3', '4', '5', '6'],
@@ -137,7 +169,15 @@ function BookForm(props) {
             )
             .required('יש לבחור את משך חזרה'),
         })}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          console.log(
+            {
+              week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
+              day: new Date(props.date).getDay(),
+              hour: `${props.hour}:00`,
+              userId: props.user ? props.user.id : 1 // remove default
+            }
+          );
           await axios.post(
             'http://localhost:8080/api/v1/scheduling/book',
             {
@@ -152,10 +192,36 @@ function BookForm(props) {
           // await axios.get('http://localhost:8080/api/v1/scheduling/update/thisWeek');
           // props.setWeek(await axios.get('http://localhost:8080/api/v1/scheduling/update/thisWeek'));
           setSubmitting(false);
+          resetForm();
           props.setShowForm('none');
         }}
+        onReset={(values) => {
+          // handleResetForm();
+          console.log(
+            {
+              week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
+              day: new Date(props.date).getDay(),
+              hour: `${props.hour}:00`,
+              userId: props.user ? props.user.id : 1 // remove default
+            }
+          );
+          console.log(values);
+          // axios.post(
+          //   'http://localhost:8080/api/v1/scheduling/unappend',
+          //   {
+          //     week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
+          //     day: new Date(props.date).getDay(),
+          //     hour: `${props.hour}:00`,
+          //     userId: props.user ? props.user.id : 1 // remove default
+          //   }
+          // )
+          // .catch(e => console.log(e))
+          props.setShowForm('none');
+          props.setDate('')
+          props.setHour('')
+        }}
       >
-        {({ values }) => (
+        {({ values, setFieldValue }) => (
           <Form className='bookForm'>
             <MyTextInput
               className='longInput'
@@ -169,12 +235,11 @@ function BookForm(props) {
               id='date'
               label='תאריך'
               name='date'
+              // value={props.date}
+              // setFieldValue(...)
               type='text'
               placeholder={props.date}
               disabled
-            /><br />
-            <div className='timeInputs longInput'>
-              <div className='bookForm halfInput'>
               /><br />
             <div className='timeInputs'>
               <div>
@@ -183,19 +248,20 @@ function BookForm(props) {
                   id='hour'
                   label='שעת התחלה'
                   name='hour'
+                  // value={props.hour}
+                  // setFieldValue(...)
                   type='text'
                   placeholder={props.hour}
                   disabled
                 />
               </div>
-              <div className='bookForm halfInput' style={{marginRight: '1em'}}>
-                <MySelect label='משך החזרה' name='duration'>
               <div>
                 <MySelect
                   className='halfInput'
                   id='duration'
                   label='משך החזרה'
                   name='duration'
+                  disabled={!(props.date && props.hour)}
                 >
                   {durationOptions()}
                 </MySelect><br />
@@ -220,7 +286,10 @@ function BookForm(props) {
               type='text'
             />
             <br />
-            <button type='submit'>שמור</button>
+            <div className='bookFormButtons'>
+              <button type='submit' disabled={!(props.date && props.hour)}>שמור</button>
+              <button type='reset'>ביטול</button>
+            </div>
           </Form>
         )}
       </Formik>

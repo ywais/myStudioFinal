@@ -331,6 +331,34 @@ p.tilePreview {
   resize: none;
 }
 
+.bookForm input:disabled {
+  background-color: #b3b3b3;
+  /* color: black; */
+  opacity: 1;
+}
+
+.bookForm select:disabled {
+  background-color: #b3b3b3;
+  /* color: #666; */
+  opacity: 1;
+}
+
+.bookFormButtons {
+  width: calc(28vw - 2px);
+  display: flex;
+  justify-content: space-between;
+}
+
+.error {
+  margin-top: 0.25em;
+  font-size: small;
+}
+
+.error:before {
+  content: "❌ ";
+  font-size: x-small;
+}
+
 /* ~~~~ custom checkbox ~~~~ */
 .checkbox {
   display: block;

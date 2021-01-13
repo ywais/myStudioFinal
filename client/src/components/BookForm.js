@@ -19,7 +19,7 @@ const MyTextInput = ({ label, ...props }) => {
 const MyDependentTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <div className='longInput' style={{display: props.displaying, marginTop: '1em'}}>
+    <div style={{display: props.displaying, marginTop: '1em'}}>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <input className='text-input' {...field} {...props} />
       {meta.touched && meta.error ? (
@@ -71,7 +71,7 @@ const MySelect = ({ label, ...props }) => {
   );
 };
 
-const BookForm = (props) => {
+function BookForm(props) {
   const [maxDuration, setMaxDuration] = useState(0);
 
   const getAvailableDuration = async () => {
@@ -159,12 +159,14 @@ const BookForm = (props) => {
           <Form className='bookForm'>
             <MyTextInput
               className='longInput'
+              id='title'
               label='כותרת'
               name='title'
               type='text'
             /><br />
             <MyTextInput
               className='halfInput'
+              id='date'
               label='תאריך'
               name='date'
               type='text'
@@ -173,8 +175,12 @@ const BookForm = (props) => {
             /><br />
             <div className='timeInputs longInput'>
               <div className='bookForm halfInput'>
+              /><br />
+            <div className='timeInputs'>
+              <div>
                 <MyTextInput
                   className='halfInput'
+                  id='hour'
                   label='שעת התחלה'
                   name='hour'
                   type='text'
@@ -184,15 +190,23 @@ const BookForm = (props) => {
               </div>
               <div className='bookForm halfInput' style={{marginRight: '1em'}}>
                 <MySelect label='משך החזרה' name='duration'>
+              <div>
+                <MySelect
+                  className='halfInput'
+                  id='duration'
+                  label='משך החזרה'
+                  name='duration'
+                >
                   {durationOptions()}
                 </MySelect><br />
               </div>
             </div>
-            <MyCheckbox name='isOpen'>
+            <MyCheckbox id='isOpen' name='isOpen'>
               הזמנה פתוחה
             </MyCheckbox>
             <MyDependentTextInput
-              className='fullInput'
+              className='longInput'
+              id='openTo'
               label='מוזמנים'
               name='openTo'
               type='text'
@@ -200,6 +214,7 @@ const BookForm = (props) => {
             /><br />
             <MyTextArea
               className='longInput'
+              id='notes'
               label='הערות'
               name='notes'
               type='text'

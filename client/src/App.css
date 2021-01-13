@@ -285,13 +285,11 @@ p.tilePreview {
 
 /* ~~~~~~~~~~~~~~ BOOKFORM ~~~~~~~~~~~~~~ */
 .bookFormContainer {
-  width: 30vw;
-  min-height: 25vh;
-  position: fixed;
+  width: calc(28vw - 2px);
   top: 25vh;
   right: 45vw;
-  padding: 1em;
-  border: thin solid black;
+  padding: 1vw;
+  border: 1px solid black;
   direction: rtl;
   text-align: right;
   z-index: 100;
@@ -309,22 +307,28 @@ p.tilePreview {
   margin-bottom: 2px;
 }
 
-.fullInput {
-  width: 100%;
-}
-
 .longInput {
-  width: calc(100% - 1em);
-  max-width: calc(100% - 1em);
+  width: calc(28vw - 6px);
+  padding: 2px;
+  border: 0;
+  border-radius: 2px;
 }
 
 .halfInput {
-  width: 14vw;
+  width: calc(14vw - 8px);
+  padding: 2px;
+  border: 0;
+  border-radius: 2px;
 }
 
 .timeInputs {
   display: flex;
   flex-direction: row;
+}
+
+#notes {
+  height: 5em;
+  resize: none;
 }
 
 /* ~~~~ custom checkbox ~~~~ */

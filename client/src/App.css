@@ -414,3 +414,45 @@ p.tilePreview {
   -ms-transform: rotate(40deg);
   transform: rotate(40deg);
 }
+
+/* ~~~~ tooltip ~~~~ */
+.tooltip {
+  width: 1.3em;
+  height: 1.3em;
+  margin-right: 1em;
+  position: relative;
+  display: inline-block;
+  font-size: x-small;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #b3b3b3;
+  color: black;
+}
+
+.tooltiptext {
+  width: 120px;
+  position: absolute;
+  visibility: hidden;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px;
+  padding: 5px 0;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  z-index: 150;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

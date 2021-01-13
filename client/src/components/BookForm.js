@@ -74,6 +74,7 @@ const MySelect = ({ label, ...props }) => {
 
 // TODO: reset button doesn't remove appends. won't read props?
 // TODO: validate date & hour. use setFieldValue?
+// TODO: edit tooltip text
 
 
 function BookForm(props) {
@@ -269,6 +270,9 @@ function BookForm(props) {
             </div>
             <MyCheckbox id='isOpen' name='isOpen'>
               הזמנה פתוחה
+              <span className='tooltip'>?
+                <span className='tooltiptext'>האם אמרו לך פעם?</span>
+              </span>
             </MyCheckbox>
             <MyDependentTextInput
               className='longInput'

@@ -48,7 +48,7 @@ const MyCheckbox = ({ children, ...props }) => {
     <div>
       <label className='formLabel checkbox'>
         <input id='openCheck' type='checkbox' {...field} {...props} />
-        <span class="checkmark"></span>
+        <span className="checkmark"></span>
         {children}
       </label>
       {meta.touched && meta.error ? (

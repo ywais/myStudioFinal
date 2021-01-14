@@ -6,6 +6,7 @@ const unknownEndpoint = (req, res) => {
 };
 
 router.use('/scheduling', require('./scheduling'));
+router.use('/equipment', require('./equipment'));
 // router.use('/image',checkToken, require('./image'));
 
 router.use(unknownEndpoint);

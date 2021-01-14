@@ -19,7 +19,7 @@ try {
 
 mysqlCon.connect(error => {
   if(error) console.error(error);
-  else console.log('Connected!');
+  else console.log('Scheduling connected!');
 });
 
 let thisWeek = [], nextWeek = [];

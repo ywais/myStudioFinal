@@ -45,7 +45,7 @@ function Scheduler(props) {
   const calendarBodyRef = useRef({current: {scrollTop: 0}});
 
   const changeWeek = async (newWeek) => {
-    const { data } = await axios.get(`http://localhost:8080/api/v1/scheduling/update/${newWeek}`);
+    const { data } = await axios.get(`/api/v1/scheduling/update/${newWeek}`);
     setWeek(data);
   }
 
@@ -83,8 +83,7 @@ function Scheduler(props) {
 
   const handleTileClose = () => {
     setShowForm('none');
-    axios.post(
-      'http://localhost:8080/api/v1/scheduling/unappend',
+    axios.post('/api/v1/scheduling/unappend',
       {
         week: new Date(week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
         day: new Date(date).getDay(),

@@ -81,8 +81,7 @@ function BookForm(props) {
   const [maxDuration, setMaxDuration] = useState(0);
 
   const getAvailableDuration = async () => {
-    const { data } = await axios.post(
-      'http://localhost:8080/api/v1/scheduling/append',
+    const { data } = await axios.post('/api/v1/scheduling/append',
       {
         week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
         day: new Date(props.date).getDay(),
@@ -131,8 +130,7 @@ function BookForm(props) {
         userId: props.user ? props.user.id : 1 // remove default
       }
     );
-    axios.post(
-      'http://localhost:8080/api/v1/scheduling/unappend',
+    axios.post('/api/v1/scheduling/unappend',
       {
         week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
         day: new Date(props.date).getDay(),
@@ -179,8 +177,7 @@ function BookForm(props) {
               userId: props.user ? props.user.id : 1 // remove default
             }
           );
-          await axios.post(
-            'http://localhost:8080/api/v1/scheduling/book',
+          await axios.post('/api/v1/scheduling/book',
             {
               ...values,
               week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
@@ -190,8 +187,8 @@ function BookForm(props) {
             }
           )
           .catch(e => console.log(e));
-          // await axios.get('http://localhost:8080/api/v1/scheduling/update/thisWeek');
-          // props.setWeek(await axios.get('http://localhost:8080/api/v1/scheduling/update/thisWeek'));
+          // await axios.get('/api/v1/scheduling/update/thisWeek');
+          // props.setWeek(await axios.get('/api/v1/scheduling/update/thisWeek'));
           setSubmitting(false);
           resetForm();
           props.setShowForm('none');
@@ -207,8 +204,7 @@ function BookForm(props) {
             }
           );
           console.log(values);
-          // axios.post(
-          //   'http://localhost:8080/api/v1/scheduling/unappend',
+          // axios.post('/api/v1/scheduling/unappend',
           //   {
           //     week: new Date(props.week[0][0]) > new Date() ? 'nextWeek' : 'thisWeek',
           //     day: new Date(props.date).getDay(),

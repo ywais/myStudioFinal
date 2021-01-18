@@ -1,9 +1,11 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 function Home(props) {
   const homeStripRef = useRef({current: {scrollTop: 0}});
 
-  homeStripRef.current.scrollTop = 150;
+  useEffect(() => {
+    homeStripRef.current.scrollTop = 150;
+  }, []);
 
   return (
     <div className='homePage'>

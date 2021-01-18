@@ -166,7 +166,7 @@ function BookForm(props) {
               ['1', '2', '3', '4', '5', '6'],
               'משך החזרה אינו תקין'
             )
-            .required('יש לבחור את משך חזרה'),
+            .required('יש לבחור את משך חזרה')
         })}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           console.log(
@@ -239,9 +239,9 @@ function BookForm(props) {
               disabled
               /><br />
             <div className='timeInputs'>
-              <div>
+              <div className='halfInputContainer'>
                 <MyTextInput
-                  className='halfInput'
+                  className='fullInput'
                   id='hour'
                   label='שעת התחלה'
                   name='hour'
@@ -252,9 +252,9 @@ function BookForm(props) {
                   disabled
                 />
               </div>
-              <div>
+              <div className='halfInputContainer'>
                 <MySelect
-                  className='halfInput'
+                  className='fullInput'
                   id='duration'
                   label='משך החזרה'
                   name='duration'

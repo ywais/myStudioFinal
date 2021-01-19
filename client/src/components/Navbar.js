@@ -7,10 +7,7 @@ function Navbar(props) {
       <a className='navbarLink' href='about'>אודות</a>
       <a className='navbarLink' href='gallery'>גלריה</a>
       <a className='navbarLink' href='contact'>צור קשר</a>
-      {props.user ?
-        <a className='navbarLink' href='user'>שלום, {props.user.displayName}</a> :
-        <a className='navbarLink' href='login'>התחבר למערכת</a>
-      }
+      <a className='navbarLink' href='user'>{props.user ? `שלום, ${props.user.displayName}` : 'התחבר למערכת'}</a>
       {/* <img id='navbarLogo' src='user.profile' alt='userProfile'/> */}
     </div>
   );

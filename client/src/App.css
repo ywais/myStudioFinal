@@ -57,7 +57,7 @@
   align-items: center;
   justify-content: space-around;
   z-index: 1000;
-  background-color: #7F7F7F;
+  background-color: gray;
   box-shadow: 0 5px 5px 0px;
 }
 
@@ -172,10 +172,64 @@
   font-size: 1.21vw;
 }
 
-/* ~~~~~~~~~~~~~~ SIGNIN ~~~~~~~~~~~~~~ */
-.signsContainer {
+/* ~~~~~~~~~~~~~~ SIGN METHODS ~~~~~~~~~~~~~~ */
+.signMethods {
   position: relative;
+  display: flex;
+  width: 72vw;
+  justify-content: space-evenly;
   z-index: 2;
+}
+
+.signMethods h1 {
+  margin-bottom: 0;
+}
+
+.signMethods h2 {
+  margin-top: 0;
+}
+
+.signIn, .signUp {
+  width: 30vw;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  background-color: #b3b3b3;
+  border-radius: 3px;
+}
+
+.signInForm, .signUpForm {
+  width: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+}
+
+.signInFormButtons, .signUpFormButtons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.signInFormButtons button, .signUpFormButtons button {
+  width: 8em;
+}
+
+.vertical {
+  border-right: 1px solid black;
+}
+
+/* ~~~~~~~~~~~~~~ SIGNIN ~~~~~~~~~~~~~~ */
+#signInWithGoogle {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+}
+
+#googleGLogo {
+  height: calc(2em + 1px);
+  margin-left: 6px;
 }
 
 /* ~~~~~~~~~~~~~~ ABOUT ~~~~~~~~~~~~~~ */

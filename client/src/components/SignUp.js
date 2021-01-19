@@ -1,51 +1,85 @@
 import firebase from "firebase";
-import { useState } from "react";
+import { Formik, Form, useField } from 'formik';
+import * as Yup from 'yup';
+
+const MyTextInput = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  return (
+    <>
+      <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
+      <input className='text-input' {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className='error'>{meta.error}</div>
+      ) : null}
+    </>
+  );
+};
 
 function SignUp(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
-  const [title, setTitle] = useState("");
-
-  const firestore = props.firebase.firestore();
-  const usersRef = firestore.collection("users");
-  usersRef.get();
-  
-  const signUp = () => {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      usersRef.add({
-        uid: user.user.uid,
-        email: user.user.email,
-        fullName: fullName,
-        imgUrl: imgUrl,
-        title: title
-      });
-      firebase.auth().currentUser.updateProfile({
-        displayName: fullName.split(" ")[0]
-      });
-    })
-    .catch((error) => {
-    let errorMessage = error.message;
-    alert(errorMessage);
-    });
-    }
-
   return (
-    <div>
-      <h1>or... Sign Up</h1>
-      <label htmlFor="suEmail">Email: </label>
-      <input id="suEmail" name="email" onChange={(event) => setEmail(event.target.value)}/><br />
-      <label htmlFor="suPassword">Password: </label>
-      <input type="password" id="suPassword" name="password" onChange={(event) => setPassword(event.target.value)}/><br />
-      <label htmlFor="suFullName">Full Name: </label>
-      <input type="fullName" id="suFullName" name="fullName" onChange={(event) => setFullName(event.target.value)}/><br />
-      <label htmlFor="suImgUrl">Profile Image: </label>
-      <input type="imgUrl" id="suImgUrl" name="imgUrl" onChange={(event) => setImgUrl(event.target.value)}/><br />
-      <label htmlFor="suTitle">Title: </label>
-      <input type="title" id="suTitle" name="title" onChange={(event) => setTitle(event.target.value)}/><br />
-      <button onClick={signUp}>Sign Up</button>
+    <div className="signUp">
+      <h1>משתמש חדש?</h1>
+      <h2>הרשם למערכת</h2>
+      <Formik
+        initialValues={{
+          fullName: '',
+          email: '',
+          password: ''
+        }}
+        validationSchema={Yup.object({
+          fullName: Yup.string()
+            .matches('\\S{2,} .{2,}', 'יש להזין שם מלא')
+            .required('יש להזין שם מלא'),
+          email: Yup.string()
+            .email('יש להזין כתובת מייל תקינה')
+            .required('יש להזין כתובת מייל תקינה'),
+          password: Yup.string()
+            .min(6, 'יש להזין סיסמה מעל 6 תווים')
+            .required('יש להזין סיסמה מעל 6 תווים')
+        })}
+        onSubmit={(values, { setSubmitting }) => {
+          firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
+          .then((user) => {
+            firebase.auth().currentUser.updateProfile({
+              displayName: values.fullName
+            });
+          })
+          .catch((error) => {
+            let errorMessage = error.message;
+            alert(errorMessage);
+          });
+          setSubmitting(false);
+        }}
+      >
+        {({ values }) => (
+          <Form className='signUpForm'>
+            <MyTextInput
+              className='longInput'
+              id='fullName'
+              label='שם מלא'
+              name='fullName'
+              type='text'
+            /><br />
+            <MyTextInput
+              className='longInput'
+              id='email'
+              label='כתובת מייל'
+              name='email'
+              type='text'
+            /><br />
+            <MyTextInput
+              className='longInput'
+              id='password'
+              label='סיסמה'
+              name='password'
+              type='password'
+            /><br />
+            <div className='signUpFormButtons'>
+              <button type='submit'>הרשם</button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }

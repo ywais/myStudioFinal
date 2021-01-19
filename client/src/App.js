@@ -5,11 +5,11 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
+import Home from './components/Home';
 import About from './components/About';
-// import SignUp from './components/SignUp';
 import PrivateRouter from './components/PrivateRouter';
 import './App.css';
-import Home from './components/Home';
 
 if(!firebase.apps.length) {
   firebase.initializeApp({
@@ -58,8 +58,12 @@ function App() {
           {authorize === 'unauthorized' && (
             <BrowserRouter>
               <Switch>
-                <Route exact path="/login">
-                  <SignIn user={user} />
+                <Route exact path="/user">
+                  <div className='signMethods'>
+                    <SignIn user={user} />
+                    <div className='vertical'></div>
+                    <SignUp user={user} />
+                  </div>
                 </Route>
                 <Route exact path="/">
                   <Home user={user} />
@@ -67,12 +71,19 @@ function App() {
                 <Route exact path="/about">
                   <About user={user} />
                 </Route>
-                <Route path="/*">
+                {/* <Route path="/*">
                   <Redirect
                     to={{
                       pathname: "/login",
                     }}
                   />
+                </Route> */}
+                <Route path="/*">
+                  <div className='signMethods'>
+                    <SignIn user={user} />
+                    <div className='vertical'></div>
+                    <SignUp user={user} />
+                  </div>
                 </Route>
               </Switch>
             </BrowserRouter>

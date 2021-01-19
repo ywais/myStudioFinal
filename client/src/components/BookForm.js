@@ -62,7 +62,7 @@ const MySelect = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <div>
-      <label className='formLabel' htmlFor={props.id || props.name}>{label}</label><br />
+      <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <select {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className='error'>{meta.error}</div>
@@ -261,9 +261,9 @@ function BookForm(props) {
                   disabled={!(props.date && props.hour)}
                 >
                   {durationOptions()}
-                </MySelect><br />
+                </MySelect>
               </div>
-            </div>
+            </div><br />
             <MyCheckbox id='isOpen' name='isOpen'>
               הזמנה פתוחה
               <span className='tooltip'>?

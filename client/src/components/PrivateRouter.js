@@ -23,10 +23,10 @@ function PrivateRouter(props) {
               <User user={props.user} match={match} location={location} history={history} />
             )}
           />
-          <Route exact path="/">
+          <Route exact path='/'>
             <Home user={props.user} />
           </Route>
-          <Route exact path="/about">
+          <Route exact path='/about'>
             <About user={props.user} />
           </Route>
           <Route>

@@ -421,7 +421,7 @@ p.tilePreview {
 }
 
 .error:before {
-  content: "❌ ";
+  content: '❌ ';
   font-size: x-small;
 }
 
@@ -461,7 +461,7 @@ p.tilePreview {
 }
 
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
@@ -510,7 +510,7 @@ p.tilePreview {
 }
 
 .tooltiptext::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 50%;

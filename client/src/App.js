@@ -51,34 +51,34 @@ function App() {
       <div className='pageContainer'>
         <Sidebar />
         <div className='page'>
-          <img id='backgroundLogo' src='clean_logo.png' alt='background-logo' draggable="false"/>
+          <img id='backgroundLogo' src='clean_logo.png' alt='background-logo' draggable='false'/>
           {(user || authorize === 'authorized') && (
             <PrivateRouter user={user} firebase={firebase}/>
           )}
           {authorize === 'unauthorized' && (
             <BrowserRouter>
               <Switch>
-                <Route exact path="/user">
+                <Route exact path='/user'>
                   <div className='signMethods'>
                     <SignIn user={user} />
                     <div className='vertical'></div>
                     <SignUp user={user} />
                   </div>
                 </Route>
-                <Route exact path="/">
+                <Route exact path='/'>
                   <Home user={user} />
                 </Route>
-                <Route exact path="/about">
+                <Route exact path='/about'>
                   <About user={user} />
                 </Route>
-                {/* <Route path="/*">
+                {/* <Route path='/*'>
                   <Redirect
                     to={{
-                      pathname: "/login",
+                      pathname: '/login',
                     }}
                   />
                 </Route> */}
-                <Route path="/*">
+                <Route path='/*'>
                   <div className='signMethods'>
                     <SignIn user={user} />
                     <div className='vertical'></div>

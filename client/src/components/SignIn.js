@@ -22,22 +22,22 @@ function SignIn(props) {
   }
 
   const sendResetEmail = (email) => {
-    if(email !== "") {
+    if(email !== '') {
       firebase.auth().sendPasswordResetEmail(email)
       .then((user) => {
-        alert("Email sent to " + email);
+        alert('Email sent to ' + email);
       })
       .catch((error) => {
         let errorMessage = error.message;
         alert(errorMessage);
       });
     } else {
-      alert("Fill in your email");
+      alert('Fill in your email');
     }
   }
 
   return (
-    <div className="signIn">
+    <div className='signIn'>
       <h1>משתמש קיים?</h1>
       <h2>התחבר למערכת</h2>
       <button id='signInWithGoogle' onClick={signInWithGoogle}>

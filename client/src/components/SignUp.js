@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from 'firebase';
 import { Formik, Form, useField } from 'formik';
 import * as Yup from 'yup';
 
@@ -17,7 +17,7 @@ const MyTextInput = ({ label, ...props }) => {
 
 function SignUp(props) {
   return (
-    <div className="signUp">
+    <div className='signUp'>
       <h1>משתמש חדש?</h1>
       <h2>הרשם למערכת</h2>
       <Formik

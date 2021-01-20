@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 function Home(props) {
   const homeStripRef = useRef({current: {scrollTop: 0}});

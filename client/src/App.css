@@ -1,5 +1,5 @@
 /* ~~~~~~~~~~~~~~ MAIN ~~~~~~~~~~~~~~ */
-.app {
+body {
   min-height: 100vh;
   direction: rtl;
   overflow: hidden;
@@ -220,11 +220,30 @@
   border-right: 1px solid black;
 }
 
+.signInError, .signUpError {
+  color: red;
+}
+
+.signInError::before, .signUpError::before {
+  content: '❌ ';
+}
+
+.signInAlert {
+  color: black;
+}
+
+.signInAlert::before {
+  content: '❗ ';
+}
+
 /* ~~~~~~~~~~~~~~ SIGNIN ~~~~~~~~~~~~~~ */
 #signInWithGoogle {
   display: flex;
   align-items: center;
   padding: 6px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
 }
 
 #googleGLogo {
@@ -418,9 +437,10 @@ p.tilePreview {
 .error {
   margin-top: 0.25em;
   font-size: small;
+  padding-bottom: 2px;
 }
 
-.error:before {
+.error::before {
   content: '❌ ';
   font-size: x-small;
 }
@@ -460,17 +480,17 @@ p.tilePreview {
   background-color: #FEC627;
 }
 
-.checkmark:after {
+.checkmark::after {
   content: '';
   position: absolute;
   display: none;
 }
 
-.checkbox input:checked ~ .checkmark:after {
+.checkbox input:checked ~ .checkmark::after {
   display: block;
 }
 
-.checkbox .checkmark:after {
+.checkbox .checkmark::after {
   right: 0.29em;
   width: 0.2em;
   height: 0.65em;

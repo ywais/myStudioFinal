@@ -144,25 +144,27 @@ function Scheduler(props) {
             <div className='calendarBody' ref={calendarBodyRef}>
               {hours.map((elemnt, index) =>
                 index > 0 && index % 2 === 0 ?
-                <CalendarCell
-                  key={index}
-                  className='calendarHour'
-                  row={index + 1}
-                  column={1}
-                >
-                  {elemnt}
-                </CalendarCell> : ''
+                  <CalendarCell
+                    key={index}
+                    className='calendarHour'
+                    row={index + 1}
+                    column={1}
+                  >
+                    {elemnt}
+                  </CalendarCell> :
+                  ''
               )}
               {hours.map((elemnt, index) =>
                 index % 2 === 0 ?
-                <CalendarCell
-                  key={index}
-                  className='calendarLine'
-                  row={index + 1}
-                  column={2}
-                  border='horizontal'
-                >
-                </CalendarCell> : ''
+                  <CalendarCell
+                    key={index}
+                    className='calendarLine'
+                    row={index + 1}
+                    column={2}
+                    border='horizontal'
+                  >
+                  </CalendarCell> :
+                  ''
               )}
               {week[0].length && week.map((day, columnIndex) => 
                 day.slice(1).map((hour, rowIndex) => 
@@ -178,13 +180,13 @@ function Scheduler(props) {
                   >
                     {
                       hour.status.slice(-5) === 'first' ?
-                      <div className='appointmentTile'>
-                        <h5 className='tilePreview' id='tileHeader'>{hour.title}</h5>
-                        <p className='tilePreview' id='tileHours'>{hour.startHour} - {hour.endHour}</p>
-                        <p className='tilePreview' id='tileGroup'>{hour.groupNAME}</p>
-                        <p className='tilePreview' id='tileUser'>{hour.userName}</p>
-                      </div> :
-                      ''
+                        <div className='appointmentTile'>
+                          <h5 className='tilePreview' id='tileHeader'>{hour.title}</h5>
+                          <p className='tilePreview' id='tileHours'>{hour.startHour} - {hour.endHour}</p>
+                          <p className='tilePreview' id='tileGroup'>{hour.groupNAME}</p>
+                          <p className='tilePreview' id='tileUser'>{hour.userName}</p>
+                        </div> :
+                        ''
                     }
                   </CalendarCell>
                 )

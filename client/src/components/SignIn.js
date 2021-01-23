@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { Formik, Form, useField } from 'formik';
+import { useState } from 'react';
 import * as Yup from 'yup';
 
 const MyTextInput = ({ label, ...props }) => {
@@ -8,14 +9,18 @@ const MyTextInput = ({ label, ...props }) => {
     <>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <input className='text-input' {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ?
+        <div className='error'>{meta.error}</div> : 
+        <br />
+      }
     </>
   );
 };
 
 function SignIn(props) {
+  const [errorMessage, setErrorMessage] = useState('');
+  const [alertMessage, setAlertMessage] = useState('');
+
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider);
@@ -25,14 +30,34 @@ function SignIn(props) {
     if(email !== '') {
       firebase.auth().sendPasswordResetEmail(email)
       .then((user) => {
-        alert('Email sent to ' + email);
+        setAlertMessage('הנחיות איפוס סיסמה נשלחו ל-' + email);
+        setTimeout(() => {
+          return setAlertMessage('');
+        }, 3000);
       })
       .catch((error) => {
-        let errorMessage = error.message;
-        alert(errorMessage);
+        const errorCode = error.code;
+        switch (errorCode) {
+          case 'auth/invalid-email':
+            setErrorMessage('כתובת המייל שהוזנה אינה תקינה');
+            break;
+          case 'auth/user-not-found':
+            setErrorMessage('כתובת המייל שהוזנה אינה רשומה במערכת');
+            break;
+          default:
+            setErrorMessage('ארעה תקלה, אנא נסה שנית מאוחר יותר');
+            console.log(errorCode);
+            break;
+        }
+        setTimeout(() => {
+          return setErrorMessage('');
+        }, 3000);
       });
     } else {
-      alert('Fill in your email');
+      setAlertMessage('יש להזין כתובת מייל תקינה');
+      setTimeout(() => {
+        return setAlertMessage('');
+      }, 3000);
     }
   }
 
@@ -60,8 +85,28 @@ function SignIn(props) {
         onSubmit={(values, { setSubmitting }) => {
           firebase.auth().signInWithEmailAndPassword(values.email, values.password)
           .catch((error) => {
-            let errorMessage = error.message;
-            alert(errorMessage);
+            const errorCode = error.code;
+            switch (errorCode) {
+              case 'auth/invalid-email':
+                setErrorMessage('כתובת המייל שהוזנה אינה תקינה');
+                break;
+              case 'auth/user-disabled':
+                setErrorMessage('המשתמש נחסם. אנא צור קשר עם צוות המערכת לעזרה');
+                break;
+              case 'auth/user-not-found':
+                setErrorMessage('כתובת המייל או הסיסמה אינם נכונים');
+                break;
+              case 'auth/wrong-password':
+                setErrorMessage('כתובת המייל או הסיסמה אינם נכונים');
+                break;
+              default:
+                setErrorMessage('ארעה תקלה, אנא נסה שנית מאוחר יותר');
+                console.log(errorCode);
+                break;
+            }
+            setTimeout(() => {
+              return setErrorMessage('');
+            }, 3000);
           });
           setSubmitting(false);
         }}
@@ -74,14 +119,22 @@ function SignIn(props) {
               label='כתובת מייל'
               name='email'
               type='text'
-            /><br />
+            />
             <MyTextInput
               className='longInput'
               id='password'
               label='סיסמה'
               name='password'
               type='password'
-            /><br />
+            />
+            <div className='signInMessages'>
+              {errorMessage ?
+                <span className='signInError'>{errorMessage}</span> :
+                alertMessage ? 
+                  <span className='signInAlert'>{alertMessage}</span> :
+                  <br />
+              }
+            </div>
             <div className='signInFormButtons'>
               <button type='submit'>התחבר</button>
               <button type='button' onClick={() => sendResetEmail(values.email)}>שכחת סיסמה?</button>

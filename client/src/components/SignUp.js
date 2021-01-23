@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { Formik, Form, useField } from 'formik';
+import { useState } from 'react';
 import * as Yup from 'yup';
 
 const MyTextInput = ({ label, ...props }) => {
@@ -8,14 +9,17 @@ const MyTextInput = ({ label, ...props }) => {
     <>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <input className='text-input' {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ?
+        <div className='error'>{meta.error}</div> : 
+        <br />
+      }
     </>
   );
 };
 
 function SignUp(props) {
+  const [errorMessage, setErrorMessage] = useState('');
+
   return (
     <div className='signUp'>
       <h1>משתמש חדש?</h1>
@@ -45,8 +49,25 @@ function SignUp(props) {
             });
           })
           .catch((error) => {
-            let errorMessage = error.message;
-            alert(errorMessage);
+            const errorCode = error.code;
+            switch (errorCode) {
+              case 'auth/email-already-in-use':
+                setErrorMessage('כתובת המייל שהוזנה רשומה במערכת');
+                break;
+              case 'auth/invalid-email':
+                setErrorMessage('כתובת המייל שהוזנה אינה תקינה');
+                break;
+              case 'auth/weak-password':
+                setErrorMessage('הסיסמה שהוזנה חלשה מדי');
+                break;
+              default:
+                setErrorMessage('ארעה תקלה, אנא נסה שנית מאוחר יותר');
+                console.log(errorCode);
+                break;
+            }
+            setTimeout(() => {
+              return setErrorMessage('');
+            }, 3000);
           });
           setSubmitting(false);
         }}
@@ -59,21 +80,27 @@ function SignUp(props) {
               label='שם מלא'
               name='fullName'
               type='text'
-            /><br />
+            />
             <MyTextInput
               className='longInput'
               id='email'
               label='כתובת מייל'
               name='email'
               type='text'
-            /><br />
+            />
             <MyTextInput
               className='longInput'
               id='password'
               label='סיסמה'
               name='password'
               type='password'
-            /><br />
+            />
+            <div className='signUpMessages'>
+              {errorMessage ?
+                <span className='signUpError'>{errorMessage}</span> :
+                <br />
+              }
+            </div>
             <div className='signUpFormButtons'>
               <button type='submit'>הרשם</button>
             </div>

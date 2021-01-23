@@ -9,9 +9,10 @@ const MyTextInput = ({ label, ...props }) => {
     <>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <input className='text-input' {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ?
+        <div className='error'>{meta.error}</div> :
+        null
+      }
     </>
   );
 };
@@ -22,9 +23,10 @@ const MyDependentTextInput = ({ label, ...props }) => {
     <div style={{display: props.displaying, marginTop: '1em'}}>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <input className='text-input' {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ?
+        <div className='error'>{meta.error}</div> :
+        null
+      }
     </div>
   );
 };
@@ -35,9 +37,10 @@ const MyTextArea = ({ label, ...props }) => {
     <>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <textarea className='text-input' {...field} {...props}></textarea>
-      {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ?
+        <div className='error'>{meta.error}</div> :
+        null
+      }
     </>
   );
 };
@@ -51,9 +54,10 @@ const MyCheckbox = ({ children, ...props }) => {
         <span className='checkmark'></span>
         {children}
       </label>
-      {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ?
+        <div className='error'>{meta.error}</div> :
+        null
+      }
     </div>
   );
 };
@@ -64,9 +68,10 @@ const MySelect = ({ label, ...props }) => {
     <div>
       <label className='formLabel' htmlFor={props.id || props.name}>{label}</label>
       <select {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
-      ) : null}
+      {meta.touched && meta.error ?
+        <div className='error'>{meta.error}</div> :
+        null
+      }
     </div>
   );
 };
@@ -107,10 +112,10 @@ function BookForm(props) {
         <option key={durationOption} value={i + 1}>
           {
             durationOption < 1 ?
-            'חצי שעה' :
-            durationOption === 1 ?
-            'שעה' :
-            `${durationOption} שעות`
+              'חצי שעה' :
+              durationOption === 1 ?
+                'שעה' :
+                `${durationOption} שעות`
           }
         </option>
       );

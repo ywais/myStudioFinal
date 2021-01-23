@@ -23,17 +23,32 @@ function SignIn(props) {
 
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
+    firebase.auth().signInWithPopup(provider)
+    .catch((error) => {
+      const errorCode = error.code;
+      switch (errorCode) {
+        case 'auth/popup-closed-by-user':
+          setErrorMessage('החלון נסגר לפני החיבור למערכת');
+          break;
+        default:
+          setErrorMessage('ארעה תקלה, אנא נסה שנית מאוחר יותר');
+          console.log(errorCode);
+          break;
+      }
+      setTimeout(() => {
+        return setErrorMessage('');
+      }, 4000);
+    });
   }
 
   const sendResetEmail = (email) => {
     if(email !== '') {
       firebase.auth().sendPasswordResetEmail(email)
-      .then((user) => {
+      .then(() => {
         setAlertMessage('הנחיות איפוס סיסמה נשלחו ל-' + email);
         setTimeout(() => {
           return setAlertMessage('');
-        }, 3000);
+        }, 4000);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -51,13 +66,13 @@ function SignIn(props) {
         }
         setTimeout(() => {
           return setErrorMessage('');
-        }, 3000);
+        }, 4000);
       });
     } else {
       setAlertMessage('יש להזין כתובת מייל תקינה');
       setTimeout(() => {
         return setAlertMessage('');
-      }, 3000);
+      }, 4000);
     }
   }
 
@@ -106,7 +121,7 @@ function SignIn(props) {
             }
             setTimeout(() => {
               return setErrorMessage('');
-            }, 3000);
+            }, 4000);
           });
           setSubmitting(false);
         }}

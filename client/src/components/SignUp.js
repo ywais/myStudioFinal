@@ -43,7 +43,7 @@ function SignUp(props) {
         })}
         onSubmit={(values, { setSubmitting }) => {
           firebase.auth().createUserWithEmailAndPassword(values.email, values.password)
-          .then((user) => {
+          .then(() => {
             firebase.auth().currentUser.updateProfile({
               displayName: values.fullName
             });
@@ -67,7 +67,7 @@ function SignUp(props) {
             }
             setTimeout(() => {
               return setErrorMessage('');
-            }, 3000);
+            }, 4000);
           });
           setSubmitting(false);
         }}

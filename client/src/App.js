@@ -43,6 +43,7 @@ function App() {
 
 
 // TODO: don't redirect to login if authorized
+// TODO: fix checkUser
 
 
   return (

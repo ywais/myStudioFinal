@@ -30,12 +30,16 @@ function SignIn(props) {
         case 'auth/popup-closed-by-user':
           setErrorMessage('החלון נסגר לפני החיבור למערכת');
           break;
+        case 'auth/cancelled-popup-request':
+          setAlertMessage('מסך התחברות נפתח בחלון חדש');
+          break;
         default:
           setErrorMessage('ארעה תקלה, אנא נסה שנית מאוחר יותר');
           console.log(errorCode);
           break;
       }
       setTimeout(() => {
+        setAlertMessage('');
         return setErrorMessage('');
       }, 4000);
     });

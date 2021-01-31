@@ -1,15 +1,7 @@
-import { useEffect, useRef } from 'react';
-
-function Home(props) {
-  const homeStripRef = useRef({current: {scrollTop: 0}});
-
-  useEffect(() => {
-    homeStripRef.current.scrollTop = 150;
-  }, []);
-
+function Home() {
   return (
     <div className='homePage'>
-      <div className='homeStrip' ref={homeStripRef}>
+      <div className='homeStrip'>
         <img className='homeImage' src='https://instagram.fhfa1-1.fna.fbcdn.net/v/t51.2885-15/e35/19424892_1833204223664103_111733909212889088_n.jpg?_nc_ht=instagram.fhfa1-1.fna.fbcdn.net&_nc_cat=103&_nc_ohc=UY066i6TVBkAX_qgiuP&tp=1&oh=254a3b60870859a063cf665c6767b703&oe=601E6B3A' alt='kintos drummimng' />
         <img className='homeImage homeTorn' id='homeTornFirst' src='torn_bottom.png' alt='torn bottom' />
         <div className='homeStripTextContainer'>
